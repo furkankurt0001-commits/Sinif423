@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Furkan/Downloads/turkce_sinif_6.html -->
+<!-- saved from url=(0053)file:///C:/Users/Furkan/Downloads/turkce_sinif_7.html -->
 <html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -102,6 +102,15 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .empty-state{text-align:center;padding:40px 20px;color:var(--text3);font-size:.85rem}
 .empty-icon{font-size:2.5rem;margin-bottom:12px}
+.criteria-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.criteria-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.criteria-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;color:var(--text)}
+.criteria-score{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem}
+.criteria-bar{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.criteria-fill{height:100%;border-radius:3px;background:var(--accent);transition:width .6s ease}
+.criteria-detail{font-size:.75rem;color:var(--text3);line-height:1.6}
+.criteria-detail .error{color:var(--danger)}
+.criteria-detail .tip{color:var(--success)}
 </style>
 </head>
 <body>
@@ -114,6 +123,7 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent)}
 <div class="tabs">
   <div class="tab active" onclick="switchTab(&#39;yoklama&#39;)">📋 Yoklama</div>
   <div class="tab" onclick="switchTab(&#39;random&#39;)">🎲 Söz Hakkı</div>
+  <div class="tab" onclick="switchTab(&#39;kompozisyon&#39;)">📝 Kompozisyon</div>
   <div class="tab" onclick="switchTab(&#39;rapor&#39;)">📊 Rapor</div>
   <div class="tab" onclick="switchTab(&#39;gecmis&#39;)">🗂️ Geçmiş</div>
 </div>
@@ -799,6 +809,76 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent)}
     </div></div>
 </div>
 
+<!-- ══ KOMPOZİSYON ══ -->
+<div class="page" id="page-kompozisyon">
+
+  <!-- Öğrenci seç -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:12px">
+    <div class="section-title" style="margin-bottom:8px">👤 Öğrenci Seç</div>
+    <select id="kompStudent" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:&#39;DM Sans&#39;,sans-serif;font-size:.88rem;outline:none">
+      <option value="">— Öğrenci seçin —</option>
+    </select>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <div style="flex:1">
+        <div class="input-label">Kompozisyon No</div>
+        <input type="number" id="kompNo" min="1" max="20" value="1" style="width:100%;padding:9px 12px;font-size:.85rem">
+      </div>
+      <div style="flex:2">
+        <div class="input-label">Konu (opsiyonel)</div>
+        <input type="text" id="kompKonu" placeholder="Sağlık, Bayramlar..." style="width:100%;padding:9px 12px;font-size:.85rem">
+      </div>
+    </div>
+  </div>
+
+  <!-- Fotoğraf yükle -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:12px">
+    <div class="section-title" style="margin-bottom:8px">📸 Kompozisyon Fotoğrafı</div>
+    <div id="photoZone" style="border:2px dashed var(--accent);border-radius:12px;padding:20px;text-align:center;cursor:pointer;background:rgba(124,106,247,.05);transition:all .2s" onclick="document.getElementById(&#39;photoInput&#39;).click()">
+      <div style="font-size:2rem;margin-bottom:6px">📷</div>
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:700;font-size:.85rem;color:var(--accent)">Fotoğraf Çek veya Yükle</div>
+      <div style="font-size:.7rem;color:var(--text3);margin-top:4px">Telefonda kamera açılır · Bilgisayarda dosya seç</div>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this.files[0])">
+    </div>
+    <div id="photoPreview" style="display:none;margin-top:10px;text-align:center">
+      <img id="photoImg" style="max-width:100%;border-radius:10px;border:1px solid var(--border);max-height:300px;object-fit:contain">
+      <button onclick="clearPhoto()" style="display:block;margin:8px auto 0;background:none;border:1px solid var(--border);border-radius:8px;padding:5px 14px;color:var(--text3);font-size:.72rem;cursor:pointer">🗑️ Fotoğrafı Kaldır</button>
+    </div>
+  </div>
+
+  <!-- Değerlendir butonu -->
+  <button id="evalBtn" onclick="evaluateComposition()" class="btn btn-primary" style="width:100%;padding:14px;font-size:.95rem;margin-bottom:12px">
+    🤖 YZ ile Değerlendir
+  </button>
+
+  <!-- Sonuç -->
+  <div id="evalResult" style="display:none">
+    <!-- Toplam puan -->
+    <div style="background:linear-gradient(135deg,rgba(124,106,247,.2),rgba(94,207,160,.1));border:1px solid rgba(124,106,247,.3);border-radius:16px;padding:20px;text-align:center;margin-bottom:12px">
+      <div style="font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-family:&#39;Syne&#39;,sans-serif">Toplam Puan</div>
+      <div id="totalScore" style="font-family:&#39;Syne&#39;,sans-serif;font-size:3rem;font-weight:800;color:var(--accent);line-height:1.1;margin:8px 0">—</div>
+      <div style="font-size:.8rem;color:var(--text2)">25 üzerinden</div>
+    </div>
+
+    <!-- Kriter puanları -->
+    <div id="criteriaScores" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"></div>
+
+    <!-- Genel yorum -->
+    <div id="generalComment" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;font-size:.82rem;line-height:1.7;color:var(--text2)"></div>
+
+    <!-- Kaydet butonu -->
+    <button onclick="saveEvaluation()" class="btn btn-primary" style="width:100%;margin-bottom:6px">💾 Değerlendirmeyi Kaydet</button>
+    <button onclick="resetEval()" class="btn btn-ghost" style="width:100%">↺ Yeni Değerlendirme</button>
+  </div>
+
+  <!-- Geçmiş değerlendirmeler -->
+  <div class="divider"></div>
+  <div class="section-title">📚 Öğrenci Yazma Geçmişi</div>
+  <select id="histStudent" onchange="renderWritingHistory()" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:&#39;DM Sans&#39;,sans-serif;font-size:.85rem;outline:none;margin-bottom:10px">
+    <option value="">— Öğrenci seçin —</option>
+  </select>
+  <div id="writingHistory"></div>
+</div>
+
 <!-- ══ RANDOM ══ -->
 <div class="page" id="page-random">
   <div class="picker-card">
@@ -1027,13 +1107,14 @@ function cardStatus(si){const h=getHours(si);const m=h.filter(Boolean);if(!m.len
 
 // ── TABS ──
 function switchTab(tab){
-  const tabs=['yoklama','random','rapor','gecmis'];
+  const tabs=['yoklama','random','kompozisyon','rapor','gecmis'];
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',tabs[i]===tab));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+tab).classList.add('active');
   if(tab==='random')renderRandom();
   if(tab==='rapor')renderReport();
   if(tab==='gecmis')renderHistory();
+  if(tab==='kompozisyon')populateStudentSelects();
 }
 
 // ── SETUP ──
@@ -1621,7 +1702,209 @@ function renderHistory(){
   }).join('');
 }
 
-// ── HAZIR ÖĞRENCİ LİSTESİ (TTR-001.04) ──
+// ── KOMPOZİSYON DEĞERLENDİRME ──
+const CRITERIA=[
+  {key:'baslik',  name:'Başlık & Giriş-Gelişme-Sonuç', max:2},
+  {key:'paragraf',name:'Cümleler ve Paragraflar Arası Uyum', max:4},
+  {key:'konu',    name:'Konuyu Seviyeye Uygun Açıklama & Örneklendirme', max:4},
+  {key:'sozvarligi',name:'Seviyeye Uygun Söz Varlığı', max:6},
+  {key:'dilbilgisi',name:'Seviyeye Uygun Dil Bilgisi', max:6},
+  {key:'imla',    name:'İmla ve Noktalama', max:3}
+];
+
+let _currentPhotoB64='';
+let _currentEval=null;
+
+function populateStudentSelects(){
+  const opts=`<option value="">— Öğrenci seçin —</option>`+
+    state.students.map(s=>`<option value="${s.name}">${s.name}</option>`).join('');
+  const ks=document.getElementById('kompStudent');
+  const hs=document.getElementById('histStudent');
+  if(ks)ks.innerHTML=opts;
+  if(hs)hs.innerHTML=opts;
+}
+
+function handlePhoto(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    _currentPhotoB64=e.target.result;
+    document.getElementById('photoImg').src=_currentPhotoB64;
+    document.getElementById('photoPreview').style.display='block';
+    document.getElementById('photoZone').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+function clearPhoto(){
+  _currentPhotoB64='';
+  document.getElementById('photoPreview').style.display='none';
+  document.getElementById('photoZone').style.display='block';
+  document.getElementById('photoInput').value='';
+}
+
+async function evaluateComposition(){
+  const student=document.getElementById('kompStudent').value;
+  const no=document.getElementById('kompNo').value||'1';
+  const konu=document.getElementById('kompKonu').value;
+  if(!student){showToast('⚠️ Önce öğrenci seçin');return}
+  if(!_currentPhotoB64){showToast('⚠️ Önce fotoğraf yükleyin');return}
+
+  const btn=document.getElementById('evalBtn');
+  btn.disabled=true;
+  btn.textContent='⏳ Değerlendiriliyor…';
+  document.getElementById('evalResult').style.display='none';
+
+  const prompt=`Sen bir Türkçe dil öğretmenisin. Sana bir yabancı dil öğrencisinin (seviye: B1-B2) el yazısıyla yazdığı Türkçe kompozisyon fotoğrafını gösteriyorum.
+
+Önce yazıyı oku, sonra aşağıdaki 6 kritere göre değerlendir. Her kriter için:
+1. Puan (maksimum belirtilmiş)
+2. Tespit edilen hatalar (varsa, kısa ve net)
+3. Öğrenciye öneri (1-2 cümle)
+
+Kriterler:
+1. Başlık & Giriş-Gelişme-Sonuç yapısı (max 2p)
+2. Cümleler ve Paragraflar Arası Uyum (max 4p)
+3. Konuyu Seviyeye Uygun Açıklama & Örneklendirme (max 4p)
+4. Seviyeye Uygun Söz Varlığı / Kelime zenginliği (max 6p)
+5. Seviyeye Uygun Dil Bilgisi / Gramer (max 6p)
+6. İmla ve Noktalama (max 3p)
+
+${konu?`Konu: "${konu}"`:''} 
+Öğrenci: ${student}, Kompozisyon No: ${no}
+
+YANITI MUTLAKA SADECE JSON formatında ver, başka hiçbir şey yazma:
+{
+  "baslik": {"puan": 0, "hatalar": "...", "oneri": "..."},
+  "paragraf": {"puan": 0, "hatalar": "...", "oneri": "..."},
+  "konu": {"puan": 0, "hatalar": "...", "oneri": "..."},
+  "sozvarligi": {"puan": 0, "hatalar": "...", "oneri": "..."},
+  "dilbilgisi": {"puan": 0, "hatalar": "...", "oneri": "..."},
+  "imla": {"puan": 0, "hatalar": "...", "oneri": "..."},
+  "genelYorum": "...",
+  "okunanMetin": "..."
+}`;
+
+  try{
+    const base64Data=_currentPhotoB64.split(',')[1];
+    const mediaType=_currentPhotoB64.split(';')[0].split(':')[1]||'image/jpeg';
+
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{
+          role:'user',
+          content:[
+            {type:'image',source:{type:'base64',media_type:mediaType,data:base64Data}},
+            {type:'text',text:prompt}
+          ]
+        }]
+      })
+    });
+    const data=await res.json();
+    const text=data.content.map(c=>c.text||'').join('');
+    const clean=text.replace(/```json|```/g,'').trim();
+    const result=JSON.parse(clean);
+    _currentEval={student,no:parseInt(no),konu,result,date:getTodayKey()};
+    renderEvalResult(result);
+  }catch(err){
+    showToast('❌ Değerlendirme başarısız: '+err.message);
+    console.error(err);
+  }finally{
+    btn.disabled=false;
+    btn.textContent='🤖 YZ ile Değerlendir';
+  }
+}
+
+function renderEvalResult(r){
+  const total=CRITERIA.reduce((sum,c)=>sum+(r[c.key]?.puan||0),0);
+  document.getElementById('totalScore').textContent=total;
+  const color=total>=20?'var(--success)':total>=15?'var(--warn)':'var(--danger)';
+  document.getElementById('totalScore').style.color=color;
+
+  document.getElementById('criteriaScores').innerHTML=CRITERIA.map(c=>{
+    const d=r[c.key]||{};
+    const pct=Math.round((d.puan||0)/c.max*100);
+    const barColor=pct>=70?'var(--success)':pct>=40?'var(--warn)':'var(--danger)';
+    return`<div class="criteria-card">
+      <div class="criteria-header">
+        <div class="criteria-name">${c.name}</div>
+        <div class="criteria-score" style="color:${barColor}">${d.puan||0}<span style="font-size:.7rem;color:var(--text3);font-weight:400">/${c.max}</span></div>
+      </div>
+      <div class="criteria-bar"><div class="criteria-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      ${d.hatalar&&d.hatalar!=='-'&&d.hatalar!=='Yok'?`<div class="criteria-detail"><span class="error">⚠️ ${d.hatalar}</span></div>`:''}
+      ${d.oneri?`<div class="criteria-detail" style="margin-top:4px"><span class="tip">💡 ${d.oneri}</span></div>`:''}
+    </div>`;
+  }).join('');
+
+  if(r.genelYorum){
+    document.getElementById('generalComment').innerHTML=
+      `<div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;margin-bottom:6px;color:var(--text)">📝 Genel Yorum</div>${r.genelYorum}`;
+  }
+  document.getElementById('evalResult').style.display='block';
+  document.getElementById('evalResult').scrollIntoView({behavior:'smooth'});
+}
+
+function saveEvaluation(){
+  if(!_currentEval){showToast('⚠️ Önce değerlendirin');return}
+  if(!state.compositions)state.compositions={};
+  const s=_currentEval.student;
+  if(!state.compositions[s])state.compositions[s]=[];
+  const total=CRITERIA.reduce((sum,c)=>sum+((_currentEval.result[c.key]?.puan)||0),0);
+  state.compositions[s].push({
+    no:_currentEval.no,
+    konu:_currentEval.konu,
+    date:_currentEval.date,
+    total,
+    criteria:_currentEval.result,
+    photo:_currentPhotoB64
+  });
+  saveState();
+  showToast(`✅ ${s} — Kompozisyon ${_currentEval.no} kaydedildi`);
+  renderWritingHistory();
+}
+
+function resetEval(){
+  _currentEval=null;
+  _currentPhotoB64='';
+  document.getElementById('evalResult').style.display='none';
+  document.getElementById('photoPreview').style.display='none';
+  document.getElementById('photoZone').style.display='block';
+  document.getElementById('photoInput').value='';
+  document.getElementById('kompStudent').value='';
+  document.getElementById('kompNo').value='1';
+  document.getElementById('kompKonu').value='';
+}
+
+function renderWritingHistory(){
+  const s=document.getElementById('histStudent').value;
+  const el=document.getElementById('writingHistory');
+  if(!s||!state.compositions||!state.compositions[s]||!state.compositions[s].length){
+    el.innerHTML=`<div style="color:var(--text3);font-size:.8rem;padding:10px 0">Henüz değerlendirme yok.</div>`;
+    return;
+  }
+  const list=[...state.compositions[s]].sort((a,b)=>a.no-b.no);
+  el.innerHTML=list.map(comp=>{
+    const color=comp.total>=20?'var(--success)':comp.total>=15?'var(--warn)':'var(--danger)';
+    return`<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem">Kompozisyon #${comp.no} ${comp.konu?`— ${comp.konu}`:''}</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:${color}">${comp.total}<span style="font-size:.7rem;font-weight:400;color:var(--text3)">/25</span></div>
+      </div>
+      <div style="font-size:.7rem;color:var(--text3);margin-bottom:8px">${formatDate(comp.date)}</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        ${CRITERIA.map(c=>{
+          const p=comp.criteria[c.key]?.puan||0;
+          const pct=Math.round(p/c.max*100);
+          const bc=pct>=70?'badge-green':pct>=40?'badge-yellow':'badge-red';
+          return`<span class="badge ${bc}">${c.name.split(' ')[0]}: ${p}/${c.max}</span>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
 const PRESET_STUDENTS = [
   'Umar Orozobaev','Eldiyar Turdaliev','Ayana Orozbekova','Aycamal Kadırova',
   'Kanıkey Esengeldieva','Nurzat Alişova','Aycan Mitalipova','Cazmina Talantbekova',

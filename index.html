@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///C:/Users/Furkan/Downloads/turkce_sinif_5.html -->
+<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Türkçe Sınıfı</title>
+<link href="./index_files/css2" rel="stylesheet">
+<script src="./index_files/xlsx.full.min.js.indir"></script>
+<style>
+:root{--bg:#0f0f13;--surface:#1a1a22;--surface2:#22222e;--border:#2e2e3e;--accent:#7c6af7;--accent2:#f7a06a;--success:#5ecfa0;--danger:#f76a6a;--warn:#f7d06a;--text:#f0eff8;--text2:#9895b8;--text3:#5a5878}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.header-title span{color:var(--accent)}
+.date-badge{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:.72rem;color:var(--text2);font-weight:500}
+.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);padding:0 8px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:13px 16px;font-size:.78rem;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;font-family:'Syne',sans-serif;letter-spacing:.03em}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.page{display:none;padding:16px}.page.active{display:block}
+.btn{border:none;border-radius:10px;padding:11px 16px;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .15s;letter-spacing:.02em}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{background:var(--surface);border:1px solid var(--border);color:var(--text2)}
+.btn-orange{background:rgba(247,160,106,.15);border:1px solid rgba(247,160,106,.4);color:var(--accent2)}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;line-height:1}
+.stat-label{font-size:.62rem;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.05em}
+.session-banner{background:linear-gradient(135deg,rgba(124,106,247,.15),rgba(247,160,106,.1));border:1px solid rgba(124,106,247,.3);border-radius:14px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.session-dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.action-row{display:flex;gap:8px;margin-bottom:12px}
+.quick-btn{flex:1;padding:7px 4px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:.66rem;font-family:'Syne',sans-serif;font-weight:600;cursor:pointer;text-align:center;transition:all .15s}
+.quick-btn:active{transform:scale(.94)}
+.bulk-grid{display:grid;grid-template-columns:auto repeat(4,1fr);gap:5px;align-items:center}
+.bulk-label{font-size:.68rem;color:var(--text3);padding-right:4px}
+.student-list{display:flex;flex-direction:column;gap:6px}
+.student-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 12px;position:relative;overflow:hidden}
+.student-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:var(--border);transition:background .2s}
+.student-card.all-present::before{background:var(--success)}
+.student-card.all-absent::before{background:var(--danger)}
+.student-card.partial::before{background:var(--warn)}
+.student-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.student-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.75rem;flex-shrink:0;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.student-name{font-weight:600;font-size:.85rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.student-picks{font-size:.68rem;color:var(--text3)}
+.hours-row{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.hour-btn{border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text3);font-size:.75rem;cursor:pointer;padding:7px 4px;text-align:center;transition:all .15s;font-family:'Syne',sans-serif;font-weight:700;line-height:1}
+.hour-btn:active{transform:scale(.88)}
+.hour-btn.present{background:rgba(94,207,160,.2);border-color:var(--success);color:var(--success)}
+.hour-btn.absent{background:rgba(247,106,106,.2);border-color:var(--danger);color:var(--danger)}
+.hour-label{font-size:.58rem;font-weight:400;display:block;margin-top:3px;opacity:.7}
+.section-title{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;margin-top:6px}
+.divider{height:1px;background:var(--border);margin:14px 0}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.65rem;font-weight:700;font-family:'Syne',sans-serif}
+.badge-green{background:rgba(94,207,160,.15);color:var(--success)}
+.badge-yellow{background:rgba(247,208,106,.15);color:var(--warn)}
+.badge-red{background:rgba(247,106,106,.15);color:var(--danger)}
+.badge-purple{background:rgba(124,106,247,.15);color:var(--accent)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-end;backdrop-filter:blur(4px)}
+.overlay.hidden{display:none}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px 20px 0 0;padding:20px 18px;width:100%;max-height:88vh;overflow-y:auto}
+.modal-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:16px}
+.input-label{font-size:.75rem;color:var(--text2);margin-bottom:6px;font-weight:500}
+.input-group{margin-bottom:14px}
+textarea,input[type=text]{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;resize:vertical;outline:none;transition:border-color .2s}
+textarea:focus,input[type=text]:focus{border-color:var(--accent)}
+.modal-btns{display:flex;gap:8px;margin-top:8px}
+.xlsx-zone{border:2px dashed var(--accent);border-radius:14px;padding:18px;text-align:center;margin-bottom:16px;cursor:pointer;transition:all .2s;background:rgba(124,106,247,.05)}
+.xlsx-zone:hover,.xlsx-zone.drag-over{background:rgba(124,106,247,.14)}
+.picker-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.picker-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(124,106,247,.08) 0%,transparent 70%);pointer-events:none}
+.picker-label{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-family:'Syne',sans-serif;font-weight:600;margin-bottom:16px}
+.picked-name{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;min-height:60px;display:flex;align-items:center;justify-content:center}
+.picked-name.animating{animation:nameShuffle .45s ease}
+@keyframes nameShuffle{0%{opacity:0;transform:translateY(-12px) scale(.9)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.picked-sub{font-size:.78rem;color:var(--text3);margin-top:6px;min-height:20px}
+.pick-btn{background:linear-gradient(135deg,var(--accent),#a06af7);color:#fff;border:none;border-radius:14px;padding:15px 40px;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;transition:all .2s;width:100%;margin-top:16px;box-shadow:0 4px 20px rgba(124,106,247,.3)}
+.pick-btn:active{transform:scale(.97)}
+.filter-chip{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Syne',sans-serif}
+.filter-chip.active{background:rgba(124,106,247,.15);border-color:var(--accent);color:var(--accent)}
+.stats-table{width:100%;border-collapse:collapse}
+.stats-table th{font-size:.65rem;color:var(--text3);text-align:left;padding:6px 8px;text-transform:uppercase;letter-spacing:.06em;font-family:'Syne',sans-serif;border-bottom:1px solid var(--border)}
+.stats-table td{padding:9px 8px;font-size:.78rem;border-bottom:1px solid rgba(46,46,62,.5);vertical-align:middle}
+.stats-table tr:last-child td{border-bottom:none}
+.progress-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-top:4px;width:100%}
+.progress-fill{height:100%;border-radius:2px;background:var(--success);transition:width .4s}
+.progress-fill.warn{background:var(--warn)}.progress-fill.danger{background:var(--danger)}
+.never-chip{background:rgba(247,106,106,.1);border:1px solid rgba(247,106,106,.25);color:var(--danger);padding:4px 12px;border-radius:20px;font-size:.73rem;font-weight:500}
+.obs-table{width:100%;border-collapse:collapse;font-size:.75rem}
+.obs-table th{background:var(--surface2);padding:7px 8px;text-align:center;font-family:'Syne',sans-serif;font-size:.65rem;color:var(--text3);letter-spacing:.05em;border:1px solid var(--border)}
+.obs-table td{padding:7px 8px;border:1px solid var(--border);text-align:center;vertical-align:middle}
+.obs-table td.name-col{text-align:left;font-weight:500;font-size:.78rem}
+.cell-absent{background:rgba(247,106,106,.18);color:var(--danger);font-weight:700;font-size:.7rem}
+.cell-present{background:rgba(94,207,160,.1);color:var(--success)}
+.cell-empty{color:var(--text3);font-size:.7rem}
+.history-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px}
+.history-date{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:8px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:10px 20px;font-size:.82rem;font-weight:500;z-index:300;transition:transform .3s ease;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text3);font-size:.85rem}
+.empty-icon{font-size:2.5rem;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">Türkçe <span>Sınıfı</span></div>
+  <div class="date-badge" id="dateBadge">Perşembe</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(&#39;yoklama&#39;)">📋 Yoklama</div>
+  <div class="tab" onclick="switchTab(&#39;random&#39;)">🎲 Söz Hakkı</div>
+  <div class="tab" onclick="switchTab(&#39;rapor&#39;)">📊 Rapor</div>
+  <div class="tab" onclick="switchTab(&#39;gecmis&#39;)">🗂️ Geçmiş</div>
+</div>
+
+<!-- ══ YOKLAMA ══ -->
+<div class="page active" id="page-yoklama">
+  <div class="session-banner">
+    <div>
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:700;font-size:.95rem" id="sessionDateText">19 Mart 2026</div>
+      <div style="font-size:.72rem;color:var(--text2);margin-top:2px" id="sessionSubText">108 mevcut saat · 0 devamsız saat · 0 işaretlenmedi</div>
+    </div>
+    <div class="session-dot"></div>
+  </div>
+
+  <!-- T1-T4 Özet -->
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent);font-size:1rem">T1</div><div class="stat-label" id="t1stat">27✓ 0✗</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent);font-size:1rem">T2</div><div class="stat-label" id="t2stat">27✓ 0✗</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent);font-size:1rem">T3</div><div class="stat-label" id="t3stat">27✓ 0✗</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent);font-size:1rem">T4</div><div class="stat-label" id="t4stat">27✓ 0✗</div></div>
+  </div>
+
+  <div class="action-row">
+    <button class="btn btn-ghost" onclick="openSetup()">✏️ Öğrenciler</button>
+    <button class="btn btn-primary" onclick="saveSession()">💾 Kaydet</button>
+    <button class="btn btn-orange" onclick="openOBS()">📤 MABİS</button>
+    <button class="btn btn-ghost" onclick="openSettings()" title="Ayarlar" style="padding:11px 13px">⚙️</button>
+  </div>
+
+  <!-- Toplu İşlem -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:12px">
+    <div class="section-title" style="margin-bottom:8px">⚡ Toplu İşlem</div>
+    <div class="bulk-grid">
+      <div class="bulk-label">Saat</div>
+      <div style="font-size:.72rem;font-family:&#39;Syne&#39;,sans-serif;font-weight:700;text-align:center;color:var(--accent)">T1</div>
+      <div style="font-size:.72rem;font-family:&#39;Syne&#39;,sans-serif;font-weight:700;text-align:center;color:var(--accent)">T2</div>
+      <div style="font-size:.72rem;font-family:&#39;Syne&#39;,sans-serif;font-weight:700;text-align:center;color:var(--accent)">T3</div>
+      <div style="font-size:.72rem;font-family:&#39;Syne&#39;,sans-serif;font-weight:700;text-align:center;color:var(--accent)">T4</div>
+
+      <div class="bulk-label" style="color:var(--success)">✓ Var</div>
+      <button class="quick-btn" onclick="markAllHour(0,&#39;present&#39;)" style="color:var(--success);border-color:rgba(94,207,160,.3)">T1</button>
+      <button class="quick-btn" onclick="markAllHour(1,&#39;present&#39;)" style="color:var(--success);border-color:rgba(94,207,160,.3)">T2</button>
+      <button class="quick-btn" onclick="markAllHour(2,&#39;present&#39;)" style="color:var(--success);border-color:rgba(94,207,160,.3)">T3</button>
+      <button class="quick-btn" onclick="markAllHour(3,&#39;present&#39;)" style="color:var(--success);border-color:rgba(94,207,160,.3)">T4</button>
+
+      <div class="bulk-label" style="color:var(--danger)">✗ Yok</div>
+      <button class="quick-btn" onclick="markAllHour(0,&#39;absent&#39;)" style="color:var(--danger);border-color:rgba(247,106,106,.3)">T1</button>
+      <button class="quick-btn" onclick="markAllHour(1,&#39;absent&#39;)" style="color:var(--danger);border-color:rgba(247,106,106,.3)">T2</button>
+      <button class="quick-btn" onclick="markAllHour(2,&#39;absent&#39;)" style="color:var(--danger);border-color:rgba(247,106,106,.3)">T3</button>
+      <button class="quick-btn" onclick="markAllHour(3,&#39;absent&#39;)" style="color:var(--danger);border-color:rgba(247,106,106,.3)">T4</button>
+
+      <div class="bulk-label">↺ Temizle</div>
+      <button class="quick-btn" onclick="markAllHour(0,null)">T1</button>
+      <button class="quick-btn" onclick="markAllHour(1,null)">T2</button>
+      <button class="quick-btn" onclick="markAllHour(2,null)">T3</button>
+      <button class="quick-btn" onclick="markAllHour(3,null)">T4</button>
+    </div>
+    <button class="quick-btn" style="width:100%;margin-top:8px;color:var(--success);border-color:rgba(94,207,160,.3)" onclick="markAllDayPresent()">✓ Tüm Gün — Herkesi VAR Yap</button>
+  </div>
+
+  <div class="section-title">Öğrenci Listesi — T1 · T2 · T3 · T4</div>
+  <div class="student-list" id="studentList"><div class="student-card all-present" id="sc-0">
+      <div class="student-top">
+        <div class="student-avatar">UO</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Umar Orozobaev</div>
+          <div class="student-picks">Söz hakkı: 3x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(0,0)" id="hb-0-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(0,1)" id="hb-0-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(0,2)" id="hb-0-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(0,3)" id="hb-0-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-1">
+      <div class="student-top">
+        <div class="student-avatar">ET</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Eldiyar Turdaliev</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(1,0)" id="hb-1-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(1,1)" id="hb-1-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(1,2)" id="hb-1-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(1,3)" id="hb-1-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-2">
+      <div class="student-top">
+        <div class="student-avatar">AO</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Ayana Orozbekova</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(2,0)" id="hb-2-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(2,1)" id="hb-2-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(2,2)" id="hb-2-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(2,3)" id="hb-2-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-3">
+      <div class="student-top">
+        <div class="student-avatar">AK</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Aycamal Kadırova</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(3,0)" id="hb-3-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(3,1)" id="hb-3-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(3,2)" id="hb-3-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(3,3)" id="hb-3-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-4">
+      <div class="student-top">
+        <div class="student-avatar">KE</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Kanıkey Esengeldieva</div>
+          <div class="student-picks">Söz hakkı: 1x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(4,0)" id="hb-4-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(4,1)" id="hb-4-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(4,2)" id="hb-4-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(4,3)" id="hb-4-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-5">
+      <div class="student-top">
+        <div class="student-avatar">NA</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Nurzat Alişova</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(5,0)" id="hb-5-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(5,1)" id="hb-5-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(5,2)" id="hb-5-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(5,3)" id="hb-5-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-6">
+      <div class="student-top">
+        <div class="student-avatar">AM</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Aycan Mitalipova</div>
+          <div class="student-picks">Söz hakkı: 1x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(6,0)" id="hb-6-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(6,1)" id="hb-6-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(6,2)" id="hb-6-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(6,3)" id="hb-6-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-7">
+      <div class="student-top">
+        <div class="student-avatar">CT</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Cazmina Talantbekova</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(7,0)" id="hb-7-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(7,1)" id="hb-7-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(7,2)" id="hb-7-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(7,3)" id="hb-7-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-8">
+      <div class="student-top">
+        <div class="student-avatar">BM</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Begayım Malikova</div>
+          <div class="student-picks">Söz hakkı: 3x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(8,0)" id="hb-8-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(8,1)" id="hb-8-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(8,2)" id="hb-8-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(8,3)" id="hb-8-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-9">
+      <div class="student-top">
+        <div class="student-avatar">AM</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Aybek Mamaşov</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(9,0)" id="hb-9-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(9,1)" id="hb-9-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(9,2)" id="hb-9-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(9,3)" id="hb-9-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-10">
+      <div class="student-top">
+        <div class="student-avatar">BS</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Bolotbek Sıdıkaliev</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(10,0)" id="hb-10-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(10,1)" id="hb-10-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(10,2)" id="hb-10-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(10,3)" id="hb-10-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-11">
+      <div class="student-top">
+        <div class="student-avatar">NS</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Nurayım Seytkulova</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(11,0)" id="hb-11-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(11,1)" id="hb-11-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(11,2)" id="hb-11-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(11,3)" id="hb-11-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-12">
+      <div class="student-top">
+        <div class="student-avatar">NE</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Nadiya Esenkanova</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(12,0)" id="hb-12-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(12,1)" id="hb-12-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(12,2)" id="hb-12-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(12,3)" id="hb-12-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-13">
+      <div class="student-top">
+        <div class="student-avatar">BN</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Binazir Nurbekova</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(13,0)" id="hb-13-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(13,1)" id="hb-13-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(13,2)" id="hb-13-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(13,3)" id="hb-13-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-14">
+      <div class="student-top">
+        <div class="student-avatar">GU</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Gülseyil Umetova</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(14,0)" id="hb-14-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(14,1)" id="hb-14-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(14,2)" id="hb-14-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(14,3)" id="hb-14-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-15">
+      <div class="student-top">
+        <div class="student-avatar">AE</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Adina Eralieva</div>
+          <div class="student-picks">Söz hakkı: 1x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(15,0)" id="hb-15-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(15,1)" id="hb-15-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(15,2)" id="hb-15-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(15,3)" id="hb-15-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-16">
+      <div class="student-top">
+        <div class="student-avatar">AO</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Adelina Okenova</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(16,0)" id="hb-16-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(16,1)" id="hb-16-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(16,2)" id="hb-16-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(16,3)" id="hb-16-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-17">
+      <div class="student-top">
+        <div class="student-avatar">AK</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Abay Kamçıbekov</div>
+          <div class="student-picks">Söz hakkı: 3x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(17,0)" id="hb-17-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(17,1)" id="hb-17-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(17,2)" id="hb-17-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(17,3)" id="hb-17-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-18">
+      <div class="student-top">
+        <div class="student-avatar">HB</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Hanışay Baktıbekova</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(18,0)" id="hb-18-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(18,1)" id="hb-18-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(18,2)" id="hb-18-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(18,3)" id="hb-18-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-19">
+      <div class="student-top">
+        <div class="student-avatar">CB</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Cibek Baktıbekova</div>
+          <div class="student-picks">Söz hakkı: 1x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(19,0)" id="hb-19-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(19,1)" id="hb-19-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(19,2)" id="hb-19-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(19,3)" id="hb-19-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-20">
+      <div class="student-top">
+        <div class="student-avatar">AA</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Arlen Asılbekov</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(20,0)" id="hb-20-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(20,1)" id="hb-20-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(20,2)" id="hb-20-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(20,3)" id="hb-20-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-21">
+      <div class="student-top">
+        <div class="student-avatar">AA</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Aktan Aydarov</div>
+          <div class="student-picks">Söz hakkı: 5x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(21,0)" id="hb-21-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(21,1)" id="hb-21-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(21,2)" id="hb-21-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(21,3)" id="hb-21-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-22">
+      <div class="student-top">
+        <div class="student-avatar">AM</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Alim Manarov</div>
+          <div class="student-picks">Söz hakkı: 2x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(22,0)" id="hb-22-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(22,1)" id="hb-22-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(22,2)" id="hb-22-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(22,3)" id="hb-22-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-23">
+      <div class="student-top">
+        <div class="student-avatar">EE</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Ercan Erkinbekov</div>
+          <div class="student-picks">Söz hakkı: 3x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(23,0)" id="hb-23-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(23,1)" id="hb-23-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(23,2)" id="hb-23-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(23,3)" id="hb-23-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-24">
+      <div class="student-top">
+        <div class="student-avatar">AS</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Alişer Sarıgul Tegin</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(24,0)" id="hb-24-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(24,1)" id="hb-24-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(24,2)" id="hb-24-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(24,3)" id="hb-24-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-25">
+      <div class="student-top">
+        <div class="student-avatar">NA</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Nuray Akılbekova</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(25,0)" id="hb-25-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(25,1)" id="hb-25-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(25,2)" id="hb-25-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(25,3)" id="hb-25-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div><div class="student-card all-present" id="sc-26">
+      <div class="student-top">
+        <div class="student-avatar">NT</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">Nurkız Toyçubekova</div>
+          <div class="student-picks">Söz hakkı: 0x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        <button class="hour-btn present" onclick="toggleHour(26,0)" id="hb-26-0">
+          ✓
+          <span class="hour-label">T1</span>
+        </button><button class="hour-btn present" onclick="toggleHour(26,1)" id="hb-26-1">
+          ✓
+          <span class="hour-label">T2</span>
+        </button><button class="hour-btn present" onclick="toggleHour(26,2)" id="hb-26-2">
+          ✓
+          <span class="hour-label">T3</span>
+        </button><button class="hour-btn present" onclick="toggleHour(26,3)" id="hb-26-3">
+          ✓
+          <span class="hour-label">T4</span>
+        </button>
+      </div>
+    </div></div>
+</div>
+
+<!-- ══ RANDOM ══ -->
+<div class="page" id="page-random">
+  <div class="picker-card">
+    <div class="picker-label">🎲 Söz Hakkı Verilecek Öğrenci</div>
+    <div class="picked-name" id="pickedName">—</div>
+    <div style="font-size:.95rem;color:var(--text2);margin-top:4px;min-height:22px;font-family:&#39;Syne&#39;,sans-serif;font-weight:600" id="pickedFullName"></div>
+    <div class="picked-sub" id="pickedSub">Butona bas, bir öğrenci seçelim</div>
+
+    <!-- Correct / Incorrect / Dismiss -->
+    <div id="answerBtns" style="display:none;gap:8px;margin-top:14px;flex-direction:column">
+      <div style="display:flex;gap:8px">
+        <button onclick="markAnswer(&#39;correct&#39;)" style="flex:1;padding:12px;border-radius:12px;border:none;background:rgba(94,207,160,.15);color:var(--success);font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;border:1px solid rgba(94,207,160,.3);transition:all .15s">✅ Doğru</button>
+        <button onclick="markAnswer(&#39;incorrect&#39;)" style="flex:1;padding:12px;border-radius:12px;border:none;background:rgba(247,106,106,.12);color:var(--danger);font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;border:1px solid rgba(247,106,106,.3);transition:all .15s">❌ Yanlış</button>
+      </div>
+      <button onclick="markAnswer(&#39;dismiss&#39;)" style="width:100%;padding:9px;border-radius:10px;border:1px solid var(--border);background:none;color:var(--text3);font-family:&#39;Syne&#39;,sans-serif;font-weight:600;font-size:.8rem;cursor:pointer">— Atla</button>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="pick-btn" onclick="pickRandom()" style="flex:3;margin-top:0">🎲 Rastgele Seç</button>
+      <button onclick="replayName()" id="replayBtn" title="Tekrar oku" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:14px;color:var(--text2);font-size:1.3rem;cursor:pointer;transition:all .2s" disabled="">🔊</button>
+    </div>
+    <button onclick="openEditName()" id="editNameBtn" style="display:none;margin-top:10px;width:100%;background:none;border:1px solid var(--border);border-radius:10px;padding:8px;color:var(--text3);font-size:.75rem;font-family:&#39;Syne&#39;,sans-serif;font-weight:600;cursor:pointer;letter-spacing:.03em">✏️ Ad / Soyadı Düzenle</button>
+    <button onclick="openVoiceRecord(document.getElementById(&#39;editNameBtn&#39;)._currentName)" id="voiceRecBtn" style="display:none;margin-top:6px;width:100%;background:rgba(124,106,247,.1);border:1px solid rgba(124,106,247,.3);border-radius:10px;padding:8px;color:var(--accent);font-size:.75rem;font-family:&#39;Syne&#39;,sans-serif;font-weight:600;cursor:pointer;letter-spacing:.03em">🎙️ Ses Kaydı Yap / Düzenle</button>
+
+    <!-- Cevap skoru -->
+    <div id="answerScore" style="display:none;margin-top:12px;background:var(--surface2);border-radius:10px;padding:10px 14px;display:flex;gap:12px;justify-content:center">
+      <span style="font-size:.75rem;color:var(--success)">✅ <span id="scoreCorrect">0</span> Doğru</span>
+      <span style="font-size:.75rem;color:var(--danger)">❌ <span id="scoreIncorrect">0</span> Yanlış</span>
+      <span style="font-size:.75rem;color:var(--text3)">— <span id="scoreDismiss">0</span> Atlandı</span>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:14px">
+    <div class="filter-chip active" id="filterAll" onclick="setFilter(&#39;all&#39;)">Tümü</div>
+    <div class="filter-chip" id="filterPresent" onclick="setFilter(&#39;present&#39;)">Sadece Mevcut</div>
+    <div class="filter-chip" id="filterNever" onclick="setFilter(&#39;never&#39;)">Hiç Seçilmeyenler</div>
+  </div>
+  <div id="neverPickedSection">
+    <div class="section-title">⚠️ Hiç Söz Hakkı Almayan Öğrenciler</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px" id="neverPickedList"></div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Seçilme İstatistiği</div>
+  <div id="pickStatsList" style="display:flex;flex-direction:column;gap:6px"></div>
+</div>
+
+<!-- ══ RAPOR ══ -->
+<div class="page" id="page-rapor">
+  <div class="section-title">Ders Saati Bazında Devamsızlık</div>
+  <div style="overflow-x:auto">
+    <table class="stats-table" id="reportTable">
+      <thead><tr><th>Öğrenci</th><th>Var</th><th>Yok</th><th>Katılım</th><th>Durum</th></tr></thead>
+      <tbody id="reportBody"></tbody>
+    </table>
+  </div>
+  <div class="empty-state" id="reportEmpty" style="display:none"><div class="empty-icon">📊</div><div>Henüz kayıtlı ders yok.</div></div>
+  <div class="divider"></div>
+  <div class="section-title">Söz Hakkı ↔ Devamsızlık İlişkisi</div>
+  <div id="correlationList" style="display:flex;flex-direction:column;gap:6px"></div>
+</div>
+
+<!-- ══ GEÇMİŞ ══ -->
+<div class="page" id="page-gecmis">
+  <div class="section-title">Geçmiş Dersler</div>
+  <div id="historyList"></div>
+</div>
+
+<!-- ══ SETUP MODAL ══ -->
+<div class="overlay hidden" id="setupOverlay" onclick="closeSetupOutside(event)">
+  <div class="modal">
+    <div class="modal-title">✏️ Öğrenci Listesi</div>
+    <div class="xlsx-zone" id="xlsxZone" ondragover="xlsDragOver(event)" ondrop="xlsDrop(event)">
+      <div style="font-size:1.8rem;margin-bottom:8px">📊</div>
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:700;font-size:.88rem;color:var(--accent)">MABİS Sınıf Listesi Excel'i Yükle</div>
+      <div style="font-size:.72rem;color:var(--text3);margin-top:4px">Sınıf Listesi .xlsx dosyasını buraya sürükle veya tıkla</div>
+      <input type="file" id="xlsxInput" accept=".xlsx,.xls" style="display:none" onchange="handleXlsx(this.files[0])">
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+      <div style="font-size:.7rem;color:var(--text3)">veya manuel gir</div>
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+    </div>
+    <div class="input-group">
+      <div class="input-label">Her satıra bir öğrenci adı (Ad Soyad)</div>
+      <textarea id="studentInput" rows="8" placeholder="Umar Orozobaev
+Eldiyar Turdaliev
+Ayana Orozbekova
+..."></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeSetup()" style="flex:1">İptal</button>
+      <button class="btn btn-primary" onclick="saveStudents()" style="flex:2">💾 Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MABİS MODAL ══ -->
+<div class="overlay hidden" id="obsOverlay" onclick="closeOBSOutside(event)">
+  <div class="modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="modal-title">📤 MABİS Yoklama Tablosu</div>
+      <button onclick="closeOBS()" style="background:none;border:none;color:var(--text3);font-size:1.3rem;cursor:pointer;padding:4px">✕</button>
+    </div>
+    <div style="font-size:.72rem;color:var(--text3);margin-bottom:14px">MABİS'teki T1–T4 kutucuklarını bu tabloya göre doldurun. <span style="color:var(--danger);font-weight:600">YOK</span> olanları işaretleyin.</div>
+    <div id="obsStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px"></div>
+    <div style="overflow-x:auto">
+      <table class="obs-table" id="obsTable">
+        <thead><tr>
+          <th style="text-align:left;min-width:130px">Öğrenci</th>
+          <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+        </tr></thead>
+        <tbody id="obsBody"></tbody>
+      </table>
+    </div>
+    <div class="divider"></div>
+    <div class="section-title">❌ Saat Bazlı Devamsız Listesi</div>
+    <div id="obsAbsentSummary"></div>
+    <div class="divider"></div>
+    <div style="display:flex;gap:8px">
+      <button onclick="copyOBSTable()" class="btn btn-primary" style="flex:2">📋 Devamsızları Kopyala</button>
+      <button onclick="closeOBS()" class="btn btn-ghost" style="flex:1">Kapat</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AYARLAR MODAL ══ -->
+<div class="overlay hidden" id="settingsOverlay" onclick="closeSettingsOutside(event)">
+  <div class="modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="modal-title" style="margin-bottom:0">⚙️ Ses Ayarları</div>
+      <button onclick="closeSettings()" style="background:none;border:none;color:var(--text3);font-size:1.3rem;cursor:pointer;padding:4px">✕</button>
+    </div>
+
+    <!-- Cihaz bilgisi -->
+    <div style="background:var(--surface2);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:.82rem;font-weight:600;text-align:center" id="deviceInfo"></div>
+
+    <!-- Ses öncelik sırası -->
+    <div style="background:var(--surface2);border-radius:12px;padding:14px;font-size:.78rem;color:var(--text2);line-height:2">
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:700;margin-bottom:6px;color:var(--text)">🎚️ Ses Öncelik Sırası</div>
+      <div><span style="color:var(--success);font-weight:700">1.</span> 🎙️ Kendi ses kaydınız — her cihazda öncelikli</div>
+      <div><span style="color:var(--accent);font-weight:700">2.</span> 📱 Speech Synthesis — sadece telefonda aktif</div>
+      <div><span style="color:var(--text3)">3.</span> 💻 Bilgisayarda kayıt yoksa uyarı verir</div>
+    </div>
+
+    <div style="margin-top:14px;background:rgba(94,207,160,.08);border:1px solid rgba(94,207,160,.2);border-radius:12px;padding:12px 14px;font-size:.75rem;color:var(--text2);line-height:1.7">
+      💡 <strong style="color:var(--text)">İpucu:</strong> Bilgisayarda kullanırken Söz Hakkı → istatistik listesindeki <strong>🎙️</strong> butonuyla her öğrenci için sesinizi kaydedin.
+    </div>
+
+    <button onclick="closeSettings()" class="btn btn-primary" style="width:100%;margin-top:14px">Tamam</button>
+  </div>
+</div>
+
+<!-- ══ SES KAYDI MODAL ══ -->
+<div class="overlay hidden" id="voiceRecordModal" onclick="closeVoiceRecordOutside(event)">
+  <div class="modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="modal-title">🎙️ Ses Kaydı</div>
+      <button onclick="closeVoiceRecord()" style="background:none;border:none;color:var(--text3);font-size:1.3rem;cursor:pointer;padding:4px">✕</button>
+    </div>
+    <div style="text-align:center;padding:10px 0 20px">
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:2rem;font-weight:800;color:var(--accent);margin-bottom:6px" id="vrStudentName">—</div>
+      <div style="font-size:.78rem;color:var(--text2);min-height:20px" id="vrStatus">Mikrofon butonuna basıp adı söyleyin</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button id="vrRecBtn" onclick="startRecording()" style="width:100%;padding:16px;border-radius:14px;border:none;background:var(--accent);color:#fff;font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:1rem;cursor:pointer;letter-spacing:.02em">🎙️ Kaydet</button>
+      <div style="display:flex;gap:8px">
+        <button id="vrPlayBtn" onclick="playVoicePreview()" style="display:none;flex:1;padding:11px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-family:&#39;Syne&#39;,sans-serif;font-weight:600;font-size:.82rem;cursor:pointer">▶️ Dinle</button>
+        <button id="vrSaveBtn" onclick="saveVoiceRecord()" style="display:none;flex:2;padding:11px;border-radius:10px;border:none;background:var(--success);color:#0f2e20;font-family:&#39;Syne&#39;,sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">💾 Kaydet &amp; Kullan</button>
+      </div>
+      <button id="vrDeleteBtn" onclick="deleteVoiceRecord()" style="display:none;width:100%;padding:9px;border-radius:10px;border:1px solid rgba(247,106,106,.3);background:none;color:var(--danger);font-family:&#39;Syne&#39;,sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">🗑️ Kaydı Sil</button>
+      <button onclick="closeVoiceRecord()" class="btn btn-ghost" style="width:100%">Kapat</button>
+    </div>
+
+    <div style="margin-top:14px;padding:10px 12px;background:var(--surface2);border-radius:10px;font-size:.7rem;color:var(--text3);line-height:1.6">
+      💡 <strong style="color:var(--text2)">İpucu:</strong> Kaydettikten sonra "Dinle" ile kontrol edin. Kayıt kullanıldığında yapay zeka sesi devre dışı kalır.
+    </div>
+  </div>
+</div>
+
+<!-- ══ İSİM DÜZENLEME MODAL ══ -->
+<div class="overlay hidden" id="editNameOverlay" onclick="closeEditNameOutside(event)">
+  <div class="modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="modal-title" style="margin-bottom:0">✏️ İsim Düzenle</div>
+      <button onclick="closeEditName()" style="background:none;border:none;color:var(--text3);font-size:1.3rem;cursor:pointer;padding:4px">✕</button>
+    </div>
+    <div style="font-size:.75rem;color:var(--text3);margin-bottom:16px">Değişiklik sadece bu öğrenci için geçerlidir. Ses okurken sadece <strong style="color:var(--accent)">Ad</strong> alanı kullanılır.</div>
+
+    <div class="input-group">
+      <div class="input-label">Ad <span style="color:var(--accent)">★ Ses bu alanı okur</span></div>
+      <input type="text" id="editFirstName" placeholder="Umar">
+    </div>
+    <div class="input-group">
+      <div class="input-label">Soyad</div>
+      <input type="text" id="editLastName" placeholder="Orozobaev">
+    </div>
+
+    <!-- Önizleme -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center">
+      <div style="font-size:.68rem;color:var(--text3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Önizleme</div>
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)" id="namePreview">—</div>
+      <div style="font-size:.75rem;color:var(--text3);margin-top:4px">🔊 Ses okuyacak: <span id="voicePreview" style="color:var(--accent);font-weight:600">—</span></div>
+    </div>
+
+    <div style="display:flex;gap:8px">
+      <button onclick="testSpeak()" class="btn btn-ghost" style="flex:1">🔊 Test Et</button>
+      <button onclick="saveEditName()" class="btn btn-primary" style="flex:2">💾 Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const HOURS=['T1','T2','T3','T4'];
+
+let state={students:[],todayAttendance:{},sessions:[],pickHistory:{}};
+function loadState(){try{const s=localStorage.getItem('mabis_v3');if(s)state=JSON.parse(s)}catch(e){}}
+function saveState(){try{localStorage.setItem('mabis_v3',JSON.stringify(state))}catch(e){}}
+function getTodayKey(){return new Date().toISOString().slice(0,10)}
+function formatDate(k){if(!k)return'';const[y,m,d]=k.split('-');const M=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];return`${parseInt(d)} ${M[parseInt(m)-1]} ${y}`}
+function getInitials(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+function getHours(si){return state.todayAttendance[si]||[null,null,null,null]}
+function cardStatus(si){const h=getHours(si);const m=h.filter(Boolean);if(!m.length)return'';if(m.every(v=>v==='present'))return'all-present';if(m.every(v=>v==='absent'))return'all-absent';return'partial'}
+
+// ── TABS ──
+function switchTab(tab){
+  const tabs=['yoklama','random','rapor','gecmis'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',tabs[i]===tab));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+tab).classList.add('active');
+  if(tab==='random')renderRandom();
+  if(tab==='rapor')renderReport();
+  if(tab==='gecmis')renderHistory();
+}
+
+// ── SETUP ──
+function openSetup(){
+  document.getElementById('studentInput').value=state.students.map(s=>s.name).join('\n');
+  resetXlsxZone();
+  document.getElementById('setupOverlay').classList.remove('hidden');
+}
+function closeSetup(){document.getElementById('setupOverlay').classList.add('hidden')}
+function closeSetupOutside(e){if(e.target===document.getElementById('setupOverlay'))closeSetup()}
+function saveStudents(){
+  const names=document.getElementById('studentInput').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  state.students=names.map(name=>({name}));
+  saveState();closeSetup();renderStudentList();
+  showToast(`✅ ${names.length} öğrenci kaydedildi`);
+}
+
+// ── EXCEL ──
+function resetXlsxZone(){
+  const z=document.getElementById('xlsxZone');
+  z.innerHTML=`<div style="font-size:1.8rem;margin-bottom:8px">📊</div>
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;color:var(--accent)">MABİS Sınıf Listesi Excel'i Yükle</div>
+    <div style="font-size:.72rem;color:var(--text3);margin-top:4px">Sınıf Listesi .xlsx dosyasını buraya sürükle veya tıkla</div>
+    <input type="file" id="xlsxInput" accept=".xlsx,.xls" style="display:none" onchange="handleXlsx(this.files[0])">`;
+  z.onclick=()=>document.getElementById('xlsxInput').click();
+}
+function xlsDragOver(e){e.preventDefault();document.getElementById('xlsxZone').classList.add('drag-over')}
+function xlsDrop(e){e.preventDefault();document.getElementById('xlsxZone').classList.remove('drag-over');if(e.dataTransfer.files[0])handleXlsx(e.dataTransfer.files[0])}
+function handleXlsx(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const wb=XLSX.read(e.target.result,{type:'array',codepage:65001});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:false});
+      let students=[];
+      let found=false;
+      for(let i=0;i<rows.length;i++){
+        const row=rows[i];
+        if(!Array.isArray(row))continue;
+        // Başlık satırını bul: "Adı ve Soyadı" içeren satır
+        const joined=row.map(c=>String(c||'')).join(' ').toLowerCase();
+        if(!found){
+          if(joined.includes('ad')&&joined.includes('soyad')){found=true;}
+          continue;
+        }
+        // Öğrenci satırı: 3. sütun (index 2) = Ad Soyad
+        const raw=String(row[2]||'').replace(/^[\s,]+/,'').replace(/\s+/g,' ').trim();
+        if(raw&&raw.length>2&&!/^\d+$/.test(raw)){
+          students.push({name:raw});
+        }
+      }
+      if(!students.length){
+        // Alternatif: başlık bulunamazsa tüm satırları tara
+        for(const row of rows){
+          if(!Array.isArray(row))continue;
+          const raw=String(row[2]||'').replace(/^[\s,]+/,'').replace(/\s+/g,' ').trim();
+          if(raw&&raw.length>3&&!/^\d+$/.test(raw)&&!raw.includes('Üniversitesi')&&!raw.includes('Bölüm')&&!raw.includes('Koordinatör')&&!raw.includes('Sınıf')&&!raw.includes('Ders')&&!raw.includes('Adı')){
+            students.push({name:raw});
+          }
+        }
+      }
+      if(!students.length){showToast('⚠️ Öğrenci bulunamadı — Manuel giriş deneyin');return;}
+      document.getElementById('studentInput').value=students.map(s=>s.name).join('\n');
+      document.getElementById('xlsxZone').innerHTML=`
+        <div style="font-size:1.5rem;margin-bottom:6px">✅</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--success)">${students.length} öğrenci yüklendi!</div>
+        <div style="font-size:.72rem;color:var(--text3);margin-top:4px">${file.name}</div>`;
+      showToast(`✅ ${students.length} öğrenci Excel'den okundu`);
+    }catch(err){
+      console.error('Excel hata:',err);
+      showToast('❌ Excel okunamadı: '+err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ── STUDENT LIST ──
+function renderStudentList(){
+  const el=document.getElementById('studentList');
+  if(!state.students.length){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">📝</div><div>Henüz öğrenci eklenmedi.</div><div style="margin-top:8px"><button class="btn btn-primary" style="font-size:.8rem;padding:10px 20px" onclick="openSetup()">Öğrenci Ekle / Excel Yükle</button></div></div>`;
+    updateStats();return;
+  }
+  el.innerHTML=state.students.map((s,si)=>{
+    const h=getHours(si);const picks=state.pickHistory[s.name]||0;
+    return`<div class="student-card ${cardStatus(si)}" id="sc-${si}">
+      <div class="student-top">
+        <div class="student-avatar">${getInitials(s.name)}</div>
+        <div style="flex:1;min-width:0">
+          <div class="student-name">${s.name}</div>
+          <div class="student-picks">Söz hakkı: ${picks}x</div>
+        </div>
+      </div>
+      <div class="hours-row">
+        ${HOURS.map((hr,hi)=>`<button class="hour-btn ${h[hi]||''}" onclick="toggleHour(${si},${hi})" id="hb-${si}-${hi}">
+          ${h[hi]==='present'?'✓':h[hi]==='absent'?'✗':'—'}
+          <span class="hour-label">${hr}</span>
+        </button>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+  updateStats();
+}
+
+function toggleHour(si,hi){
+  if(!state.todayAttendance[si])state.todayAttendance[si]=[null,null,null,null];
+  const cur=state.todayAttendance[si][hi];
+  // Döngü: null → present → absent → null
+  state.todayAttendance[si][hi]=cur===null?'present':cur==='present'?'absent':null;
+  saveState();
+  const v=state.todayAttendance[si][hi];
+  const btn=document.getElementById(`hb-${si}-${hi}`);
+  btn.className=`hour-btn ${v||''}`;
+  btn.innerHTML=`${v==='present'?'✓':v==='absent'?'✗':'—'}<span class="hour-label">${HOURS[hi]}</span>`;
+  document.getElementById(`sc-${si}`).className=`student-card ${cardStatus(si)}`;
+  updateStats();
+}
+
+function markAllHour(hi,status){
+  state.students.forEach((_,si)=>{
+    if(!state.todayAttendance[si])state.todayAttendance[si]=[null,null,null,null];
+    state.todayAttendance[si][hi]=status;
+  });
+  saveState();renderStudentList();
+}
+
+function markAllDayPresent(){
+  state.students.forEach((_,si)=>{state.todayAttendance[si]=['present','present','present','present']});
+  saveState();renderStudentList();showToast('✅ Tüm gün herkes VAR');
+}
+
+function updateStats(){
+  HOURS.forEach((h,hi)=>{
+    const el=document.getElementById(`t${hi+1}stat`);if(!el)return;
+    let p=0,a=0;
+    state.students.forEach((_,si)=>{const v=(state.todayAttendance[si]||[])[hi];if(v==='present')p++;else if(v==='absent')a++});
+    el.textContent=state.students.length?`${p}✓ ${a}✗`:'—';
+  });
+  let tp=0,ta=0,total=state.students.length*4;
+  state.students.forEach((_,si)=>{(state.todayAttendance[si]||[]).forEach(v=>{if(v==='present')tp++;else if(v==='absent')ta++})});
+  document.getElementById('sessionSubText').textContent=`${tp} mevcut saat · ${ta} devamsız saat · ${total-tp-ta} işaretlenmedi`;
+}
+
+// ── SAVE ──
+function saveSession(){
+  if(!state.students.length){showToast('⚠️ Önce öğrenci ekleyin');return}
+  const key=getTodayKey();
+  const record={date:key,attendance:{...state.todayAttendance}};
+  const idx=state.sessions.findIndex(s=>s.date===key);
+  if(idx>=0){state.sessions[idx]=record;showToast('✅ Güncellendi')}
+  else{state.sessions.push(record);showToast('✅ Yoklama kaydedildi')}
+  saveState();
+}
+
+// ── MABİS MODAL ──
+function openOBS(){
+  if(!state.students.length){showToast('⚠️ Önce öğrenci ekleyin');return}
+  renderOBS();document.getElementById('obsOverlay').classList.remove('hidden');
+}
+function closeOBS(){document.getElementById('obsOverlay').classList.add('hidden')}
+function closeOBSOutside(e){if(e.target===document.getElementById('obsOverlay'))closeOBS()}
+
+function renderOBS(){
+  // Saat özeti
+  document.getElementById('obsStats').innerHTML=HOURS.map((h,hi)=>{
+    let a=0;state.students.forEach((_,si)=>{if((state.todayAttendance[si]||[])[hi]==='absent')a++});
+    return`<div class="stat-card"><div class="stat-num" style="font-size:1rem;color:var(--accent)">${h}</div><div class="stat-label" style="color:${a>0?'var(--danger)':'var(--success)'}">${a} YOK</div></div>`;
+  }).join('');
+
+  // Tablo
+  document.getElementById('obsBody').innerHTML=state.students.map((s,si)=>{
+    const h=getHours(si);
+    const cells=h.map(v=>v==='absent'?`<td class="cell-absent">YOK</td>`:v==='present'?`<td class="cell-present">✓</td>`:`<td class="cell-empty">?</td>`).join('');
+    return`<tr><td class="name-col">${s.name}</td>${cells}</tr>`;
+  }).join('');
+
+  // Saat bazlı özet
+  const lines=HOURS.map((h,hi)=>{
+    const names=state.students.filter((_,si)=>(state.todayAttendance[si]||[])[hi]==='absent').map(s=>s.name);
+    if(!names.length)return'';
+    return`<div style="margin-bottom:10px">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;color:var(--accent);margin-bottom:5px">${h} — ${names.length} öğrenci devamsız</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${names.map(n=>`<span class="badge badge-red">${n}</span>`).join('')}</div>
+    </div>`;
+  }).filter(Boolean);
+  document.getElementById('obsAbsentSummary').innerHTML=lines.length?lines.join(''):`<div style="color:var(--success);font-size:.82rem;padding:4px 0">🎉 Bugün hiç devamsız yok!</div>`;
+}
+
+function copyOBSTable(){
+  const lines=[`📋 MABİS YOKLAMA — ${formatDate(getTodayKey())}`,`${'═'.repeat(40)}`,''];
+  HOURS.forEach((h,hi)=>{
+    const absent=state.students.filter((_,si)=>(state.todayAttendance[si]||[])[hi]==='absent').map(s=>s.name);
+    lines.push(`${h} — Devamsız (${absent.length}):`);
+    absent.length?absent.forEach((n,i)=>lines.push(`  ${i+1}. ${n}`)):lines.push('  —');
+    lines.push('');
+  });
+  navigator.clipboard.writeText(lines.join('\n')).then(()=>showToast('✅ Kopyalandı')).catch(()=>showToast('❌ Kopyalama başarısız'));
+}
+
+// ── RANDOM ──
+let pickFilter='all';
+function setFilter(f){
+  pickFilter=f;
+  ['all','present','never'].forEach(x=>document.getElementById('filter'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',f===x));
+}
+function getEligible(){
+  if(!state.students.length)return[];
+  if(pickFilter==='present')return state.students.filter((_,si)=>getHours(si).some(v=>v==='present'));
+  if(pickFilter==='never')return state.students.filter(s=>!(state.pickHistory[s.name]>0));
+  return state.students;
+}
+// ── SES SENTEZİ ──
+function cleanName(raw){
+  // MABİS formatı: ", Eldiyar Turdaliev" veya "Eldiyar Turdaliev"
+  // Virgül ve başındaki boşlukları temizle
+  return String(raw||'').replace(/^[\s,]+/,'').replace(/\s+/g,' ').trim();
+}
+function getFirstName(fullName){
+  const custom=state.nameOverrides&&state.nameOverrides[fullName];
+  if(custom&&custom.first)return custom.first;
+  const clean=cleanName(fullName);
+  return clean.split(' ')[0];
+}
+function getDisplayName(fullName){
+  const custom=state.nameOverrides&&state.nameOverrides[fullName];
+  const clean=cleanName(fullName);
+  const parts=clean.split(' ');
+  if(custom){
+    const f=custom.first||parts[0];
+    const l=custom.last!==undefined?custom.last:parts.slice(1).join(' ');
+    return{first:f,last:l,full:`${f} ${l}`.trim()};
+  }
+  return{first:parts[0],last:parts.slice(1).join(' '),full:clean};
+}
+
+// ── SES SİSTEMİ ──
+if(!state.customVoices)state.customVoices={};
+
+// Cihaz tespiti
+const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+// Telefon için Speech Synthesis hazırlığı
+let _ssVoices=[];
+function _loadSSVoices(){
+  if(!window.speechSynthesis)return;
+  _ssVoices=window.speechSynthesis.getVoices();
+}
+if(window.speechSynthesis){
+  _loadSSVoices();
+  window.speechSynthesis.onvoiceschanged=_loadSSVoices;
+}
+
+function speakName(fullName){
+  // Her zaman: kendi kaydın varsa onu çal
+  if(state.customVoices&&state.customVoices[fullName]){
+    const a=new Audio(state.customVoices[fullName]);
+    a.play().catch(()=>{});
+    return;
+  }
+  // Telefon → Speech Synthesis (güvenilir)
+  if(isMobile){
+    _mobileTTS(fullName);
+    return;
+  }
+  // Bilgisayar → kayıt yok, uyar
+  showToast('🎙️ Bu öğrenci için ses kaydı yok');
+}
+
+function _mobileTTS(fullName){
+  if(!window.speechSynthesis)return;
+  const firstName=getFirstName(fullName);
+  window.speechSynthesis.cancel();
+  // iOS/Android'de cancel sonrası hemen speak güvenli
+  const utter=new SpeechSynthesisUtterance(firstName);
+  utter.rate=0.85; utter.pitch=1.0; utter.volume=1.0;
+  const trV=_ssVoices.find(v=>v.lang==='tr-TR')||_ssVoices.find(v=>v.lang.startsWith('tr'));
+  const ruV=_ssVoices.find(v=>v.lang.startsWith('ru'));
+  if(trV){utter.voice=trV;utter.lang='tr-TR';}
+  else if(ruV){utter.voice=ruV;utter.lang='ru-RU';}
+  else{utter.lang='tr-TR';}
+  window.speechSynthesis.speak(utter);
+}
+
+// ── AYARLAR ──
+function openSettings(){
+  document.getElementById('settingsOverlay').classList.remove('hidden');
+  // Cihaz bilgisini göster
+  document.getElementById('deviceInfo').textContent=
+    isMobile?'📱 Telefon algılandı — Speech Synthesis aktif':'💻 Bilgisayar algılandı — Ses kaydı gerekli';
+}
+function closeSettings(){document.getElementById('settingsOverlay').classList.add('hidden')}
+function closeSettingsOutside(e){if(e.target===document.getElementById('settingsOverlay'))closeSettings()}
+
+// ── KENDİ SES KAYDI ──
+let _recorder=null, _recChunks=[], _recTargetName='';
+
+function openVoiceRecord(fullName){
+  _recTargetName=fullName;
+  const existing=state.customVoices&&state.customVoices[fullName];
+  const modal=document.getElementById('voiceRecordModal');
+  document.getElementById('vrStudentName').textContent=getFirstName(fullName);
+  document.getElementById('vrStatus').textContent=existing?'✅ Kayıtlı ses var — yeniden kaydedebilirsiniz':'Mikrofon butonuna basıp adı söyleyin';
+  document.getElementById('vrRecBtn').textContent='🎙️ Kaydet';
+  document.getElementById('vrRecBtn').style.background='var(--accent)';
+  document.getElementById('vrPlayBtn').style.display=existing?'block':'none';
+  document.getElementById('vrDeleteBtn').style.display=existing?'block':'none';
+  document.getElementById('vrSaveBtn').style.display='none';
+  _recChunks=[];
+  modal.classList.remove('hidden');
+}
+function closeVoiceRecord(){
+  if(_recorder&&_recorder.state==='recording')_recorder.stop();
+  document.getElementById('voiceRecordModal').classList.add('hidden');
+}
+function closeVoiceRecordOutside(e){if(e.target===document.getElementById('voiceRecordModal'))closeVoiceRecord()}
+
+async function startRecording(){
+  const btn=document.getElementById('vrRecBtn');
+  if(_recorder&&_recorder.state==='recording'){
+    _recorder.stop();
+    btn.textContent='🎙️ Kaydet';
+    btn.style.background='var(--accent)';
+    return;
+  }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    _recChunks=[];
+    _recorder=new MediaRecorder(stream);
+    _recorder.ondataavailable=e=>{if(e.data.size>0)_recChunks.push(e.data)};
+    _recorder.onstop=()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      const blob=new Blob(_recChunks,{type:'audio/webm'});
+      const reader=new FileReader();
+      reader.onload=ev=>{
+        _pendingVoice=ev.target.result;
+        document.getElementById('vrStatus').textContent='✅ Kayıt tamamlandı — dinleyin ve kaydedin';
+        document.getElementById('vrPlayBtn').style.display='block';
+        document.getElementById('vrSaveBtn').style.display='block';
+      };
+      reader.readAsDataURL(blob);
+    };
+    _recorder.start();
+    btn.textContent='⏹️ Durdur';
+    btn.style.background='var(--danger)';
+    document.getElementById('vrStatus').textContent='🔴 Kaydediliyor… Adı söyleyin, sonra Durdur\'a basın';
+  }catch(err){
+    document.getElementById('vrStatus').textContent='❌ Mikrofon izni gerekli';
+  }
+}
+let _pendingVoice='';
+function playVoicePreview(){
+  const src=_pendingVoice||(state.customVoices&&state.customVoices[_recTargetName]);
+  if(src){new Audio(src).play();}
+}
+function saveVoiceRecord(){
+  if(!_pendingVoice){showToast('⚠️ Önce kayıt yapın');return}
+  if(!state.customVoices)state.customVoices={};
+  state.customVoices[_recTargetName]=_pendingVoice;
+  saveState();
+  showToast(`✅ "${getFirstName(_recTargetName)}" için ses kaydedildi`);
+  closeVoiceRecord();
+  renderPickStats();
+}
+function deleteVoiceRecord(){
+  if(state.customVoices)delete state.customVoices[_recTargetName];
+  saveState();
+  document.getElementById('vrStatus').textContent='Ses kaydı silindi';
+  document.getElementById('vrPlayBtn').style.display='none';
+  document.getElementById('vrDeleteBtn').style.display='none';
+  document.getElementById('vrSaveBtn').style.display='none';
+  showToast('🗑️ Ses kaydı silindi');
+}
+
+function pickRandom(){
+  const pool=getEligible();
+  if(!pool.length){showToast('⚠️ Uygun öğrenci yok');return}
+  const s=pool[Math.floor(Math.random()*pool.length)];
+  state.pickHistory[s.name]=(state.pickHistory[s.name]||0)+1;
+  saveState();
+
+  const dn=getDisplayName(s.name);
+  const firstEl=document.getElementById('pickedName');
+  const fullEl=document.getElementById('pickedFullName');
+  firstEl.textContent=dn.first;
+  firstEl.classList.remove('animating');void firstEl.offsetWidth;firstEl.classList.add('animating');
+  fullEl.textContent=dn.last||'';
+  document.getElementById('pickedSub').textContent=`${state.pickHistory[s.name]}. kez seçiliyor · Havuzda ${pool.length} öğrenci`;
+
+  // Cevap butonlarını göster
+  document.getElementById('answerBtns').style.display='flex';
+  document.getElementById('answerScore').style.display='flex';
+
+  // 🔊 Sadece adı oku
+  setTimeout(()=>speakName(s.name),350);
+
+  const rb=document.getElementById('replayBtn');
+  if(rb){rb.disabled=false;rb.style.color='var(--accent)';rb.style.borderColor='rgba(124,106,247,.4)'}
+  const eb=document.getElementById('editNameBtn');
+  if(eb){eb.style.display='block';eb._currentName=s.name}
+  const vb=document.getElementById('voiceRecBtn');
+  if(vb){
+    vb.style.display='block';
+    const hasCustom=state.customVoices&&state.customVoices[s.name];
+    vb.textContent=hasCustom?'🎙️ Ses Kaydı Var — Düzenle':'🎙️ Ses Kaydı Yap';
+    vb.style.background=hasCustom?'rgba(94,207,160,.12)':'rgba(124,106,247,.1)';
+    vb.style.borderColor=hasCustom?'rgba(94,207,160,.4)':'rgba(124,106,247,.3)';
+    vb.style.color=hasCustom?'var(--success)':'var(--accent)';
+  }
+
+  renderPickStats();renderNeverPicked();renderStudentList();
+}
+
+// Doğru/Yanlış/Atla takibi
+if(!state.answerStats)state.answerStats={correct:0,incorrect:0,dismiss:0};
+function markAnswer(type){
+  if(!state.answerStats)state.answerStats={correct:0,incorrect:0,dismiss:0};
+  state.answerStats[type]=(state.answerStats[type]||0)+1;
+  saveState();
+  updateAnswerScore();
+  // Kısa animasyon geri bildirimi
+  const colors={correct:'var(--success)',incorrect:'var(--danger)',dismiss:'var(--text3)'};
+  const firstEl=document.getElementById('pickedName');
+  firstEl.style.color=colors[type];
+  setTimeout(()=>{firstEl.style.color='';pickRandom();},500);
+}
+function updateAnswerScore(){
+  const s=state.answerStats||{correct:0,incorrect:0,dismiss:0};
+  const sc=document.getElementById('scoreCorrect');
+  const si=document.getElementById('scoreIncorrect');
+  const sd=document.getElementById('scoreDismiss');
+  if(sc)sc.textContent=s.correct||0;
+  if(si)si.textContent=s.incorrect||0;
+  if(sd)sd.textContent=s.dismiss||0;
+}
+
+function replayName(){
+  const name=document.getElementById('editNameBtn')&&document.getElementById('editNameBtn')._currentName;
+  if(name)speakName(name);
+}
+
+// ── İSİM DÜZENLEME ──
+let _editingName='';
+function openEditName(){
+  const btn=document.getElementById('editNameBtn');
+  if(!btn||!btn._currentName)return;
+  _editingName=btn._currentName;
+  const dn=getDisplayName(_editingName);
+  document.getElementById('editFirstName').value=dn.first;
+  document.getElementById('editLastName').value=dn.last;
+  updateNamePreview();
+  document.getElementById('editNameOverlay').classList.remove('hidden');
+}
+function closeEditName(){document.getElementById('editNameOverlay').classList.add('hidden')}
+function closeEditNameOutside(e){if(e.target===document.getElementById('editNameOverlay'))closeEditName()}
+
+function updateNamePreview(){
+  const f=document.getElementById('editFirstName').value.trim()||'—';
+  const l=document.getElementById('editLastName').value.trim();
+  document.getElementById('namePreview').textContent=l?`${f} ${l}`:f;
+  document.getElementById('voicePreview').textContent=f;
+}
+// Canlı önizleme
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('editFirstName').addEventListener('input',updateNamePreview);
+  document.getElementById('editLastName').addEventListener('input',updateNamePreview);
+});
+
+function testSpeak(){
+  const f=document.getElementById('editFirstName').value.trim();
+  if(!f){showToast('⚠️ Ad boş');return}
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const utter=new SpeechSynthesisUtterance(f);
+  utter.rate=0.82;utter.pitch=1.05;utter.volume=1;
+  const voices=window.speechSynthesis.getVoices();
+  const trVoice=voices.find(v=>v.lang.startsWith('tr'));
+  const ruVoice=voices.find(v=>v.lang.startsWith('ru'));
+  if(trVoice)utter.voice=trVoice;else if(ruVoice)utter.voice=ruVoice;
+  utter.lang=trVoice?'tr-TR':ruVoice?'ru-RU':'tr-TR';
+  window.speechSynthesis.speak(utter);
+}
+
+function saveEditName(){
+  const f=document.getElementById('editFirstName').value.trim();
+  const l=document.getElementById('editLastName').value.trim();
+  if(!f){showToast('⚠️ Ad boş bırakılamaz');return}
+  if(!state.nameOverrides)state.nameOverrides={};
+  state.nameOverrides[_editingName]={first:f,last:l};
+  saveState();
+
+  // Picker kartını güncelle
+  document.getElementById('pickedName').textContent=f;
+  document.getElementById('pickedFullName').textContent=l;
+
+  closeEditName();
+  showToast(`✅ "${f} ${l}".trim() olarak kaydedildi`);
+  renderStudentList();
+}
+function renderNeverPicked(){
+  const never=state.students.filter(s=>!(state.pickHistory[s.name]>0));
+  const sec=document.getElementById('neverPickedSection');
+  if(!never.length){sec.style.display='none';return}
+  sec.style.display='block';
+  document.getElementById('neverPickedList').innerHTML=never.map(s=>`<span class="never-chip">${s.name}</span>`).join('');
+}
+function renderPickStats(){
+  const el=document.getElementById('pickStatsList');
+  if(!state.students.length){el.innerHTML='';return}
+  const sorted=[...state.students].sort((a,b)=>(state.pickHistory[b.name]||0)-(state.pickHistory[a.name]||0));
+  const max=Math.max(...sorted.map(s=>state.pickHistory[s.name]||0),1);
+  el.innerHTML=sorted.map(s=>{
+    const p=state.pickHistory[s.name]||0;const pct=Math.round(p/max*100);
+    const hasVoice=state.customVoices&&state.customVoices[s.name];
+    return`<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-family:'Syne',sans-serif;font-weight:800;color:var(--accent);flex-shrink:0">${getInitials(s.name)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.83rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${getDisplayName(s.name).full} ${hasVoice?'<span style="color:var(--success);font-size:.68rem">🎙️</span>':''}</div>
+        <div class="progress-bar"><div class="progress-fill ${p===0?'danger':pct<30?'warn':''}" style="width:${pct}%"></div></div>
+      </div>
+      <button onclick="openVoiceRecord('${s.name.replace(/'/g,"\\'")}')" style="background:none;border:1px solid var(--border);border-radius:8px;padding:5px 8px;cursor:pointer;font-size:.75rem;color:${hasVoice?'var(--success)':'var(--text3)'}" title="Ses kaydı">${hasVoice?'🎙️✓':'🎙️'}</button>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:${p===0?'var(--danger)':p<2?'var(--warn)':'var(--accent)'};flex-shrink:0">${p}x</div>
+    </div>`;
+  }).join('');
+}
+function renderRandom(){renderNeverPicked();renderPickStats();updateAnswerScore()}
+
+// ── RAPOR ──
+function renderReport(){
+  const tbody=document.getElementById('reportBody');
+  const empty=document.getElementById('reportEmpty');
+  const tbl=document.getElementById('reportTable');
+  if(!state.students.length||!state.sessions.length){
+    tbody.innerHTML='';empty.style.display='block';tbl.style.display='none';
+  }else{
+    empty.style.display='none';tbl.style.display='table';
+    const totalSlots=state.sessions.length*4;
+    tbody.innerHTML=state.students.map((s,si)=>{
+      let p=0,a=0;
+      state.sessions.forEach(sess=>{(sess.attendance[si]||[]).forEach(v=>{if(v==='present')p++;else if(v==='absent')a++})});
+      const pct=totalSlots?Math.round(p/totalSlots*100):0;
+      const absRate=totalSlots?Math.round(a/totalSlots*100):0;
+      const badge=absRate>=30?'badge-red':absRate>=15?'badge-yellow':'badge-green';
+      const label=absRate>=30?'⚠️ Risk':absRate>=15?'Dikkat':'İyi';
+      return`<tr><td style="font-weight:500;font-size:.78rem">${s.name}</td>
+        <td><span class="badge badge-green">${p}</span></td>
+        <td><span class="badge badge-red">${a}</span></td>
+        <td><span class="badge badge-purple">%${pct}</span></td>
+        <td><span class="badge ${badge}">${label}</span></td></tr>`;
+    }).join('');
+  }
+  const corrEl=document.getElementById('correlationList');
+  if(!state.students.length){corrEl.innerHTML='';return}
+  const items=state.students.map((s,si)=>{
+    const picks=state.pickHistory[s.name]||0;
+    let a=0;const total=state.sessions.length*4;
+    state.sessions.forEach(sess=>{(sess.attendance[si]||[]).forEach(v=>{if(v==='absent')a++})});
+    const absRate=total?Math.round(a/total*100):0;
+    return{name:s.name,picks,absRate};
+  }).sort((a,b)=>b.absRate-a.absRate);
+  corrEl.innerHTML=items.map(it=>`<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px">
+    <div style="flex:1;font-size:.8rem;font-weight:500;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${it.name}</div>
+    <span class="badge badge-purple">Söz: ${it.picks}x</span>
+    <span class="badge ${it.absRate>=30?'badge-red':it.absRate>=15?'badge-yellow':'badge-green'}">Devamsız: %${it.absRate}</span>
+  </div>`).join('');
+}
+
+// ── GEÇMİŞ ──
+function renderHistory(){
+  const el=document.getElementById('historyList');
+  if(!state.sessions.length){el.innerHTML=`<div class="empty-state"><div class="empty-icon">🗂️</div><div>Kayıtlı ders yok.</div></div>`;return}
+  const sorted=[...state.sessions].sort((a,b)=>b.date.localeCompare(a.date));
+  el.innerHTML=sorted.map(sess=>{
+    const summary=HOURS.map((h,hi)=>{
+      const a=state.students.filter((_,si)=>(sess.attendance[si]||[])[hi]==='absent').length;
+      const p=state.students.filter((_,si)=>(sess.attendance[si]||[])[hi]==='present').length;
+      return`<span class="badge badge-purple">${h}: ${p}✓ ${a}✗</span>`;
+    }).join('');
+    const totalAbsent=HOURS.reduce((acc,_,hi)=>acc+state.students.filter((_,si)=>(sess.attendance[si]||[])[hi]==='absent').length,0);
+    return`<div class="history-item">
+      <div class="history-date">📅 ${formatDate(sess.date)} ${totalAbsent>0?`· <span style="color:var(--danger)">${totalAbsent} devamsız saat</span>`:''}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">${summary}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── INIT ──
+function init(){
+  loadState();
+  const days=['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
+  document.getElementById('dateBadge').textContent=days[new Date().getDay()];
+  document.getElementById('sessionDateText').textContent=formatDate(getTodayKey());
+  document.getElementById('xlsxZone').onclick=()=>document.getElementById('xlsxInput').click();
+  renderStudentList();
+}
+init();
+</script>
+
+
+</body></html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Furkan/Downloads/turkce_sinif_7.html -->
+<!-- saved from url=(0053)file:///C:/Users/Furkan/Downloads/turkce_sinif_8.html -->
 <html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -833,11 +833,15 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent)}
   <!-- Fotoğraf yükle -->
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:12px">
     <div class="section-title" style="margin-bottom:8px">📸 Kompozisyon Fotoğrafı</div>
-    <div id="photoZone" style="border:2px dashed var(--accent);border-radius:12px;padding:20px;text-align:center;cursor:pointer;background:rgba(124,106,247,.05);transition:all .2s" onclick="document.getElementById(&#39;photoInput&#39;).click()">
+    <div id="photoZone" style="border:2px dashed var(--accent);border-radius:12px;padding:16px;text-align:center;cursor:pointer;background:rgba(124,106,247,.05);transition:all .2s">
       <div style="font-size:2rem;margin-bottom:6px">📷</div>
-      <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:700;font-size:.85rem;color:var(--accent)">Fotoğraf Çek veya Yükle</div>
-      <div style="font-size:.7rem;color:var(--text3);margin-top:4px">Telefonda kamera açılır · Bilgisayarda dosya seç</div>
-      <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this.files[0])">
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-weight:700;font-size:.85rem;color:var(--accent);margin-bottom:10px">Fotoğraf Seç</div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button onclick="document.getElementById(&#39;photoInputCamera&#39;).click()" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(124,106,247,.4);background:rgba(124,106,247,.1);color:var(--accent);font-family:&#39;Syne&#39;,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer">📸 Kamera</button>
+        <button onclick="document.getElementById(&#39;photoInputGallery&#39;).click()" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-family:&#39;Syne&#39;,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer">🖼️ Galeri</button>
+      </div>
+      <input type="file" id="photoInputCamera" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this.files[0])">
+      <input type="file" id="photoInputGallery" accept="image/*" style="display:none" onchange="handlePhoto(this.files[0])">
     </div>
     <div id="photoPreview" style="display:none;margin-top:10px;text-align:center">
       <img id="photoImg" style="max-width:100%;border-radius:10px;border:1px solid var(--border);max-height:300px;object-fit:contain">
@@ -1739,7 +1743,8 @@ function clearPhoto(){
   _currentPhotoB64='';
   document.getElementById('photoPreview').style.display='none';
   document.getElementById('photoZone').style.display='block';
-  document.getElementById('photoInput').value='';
+  document.getElementById('photoInputCamera').value='';
+  document.getElementById('photoInputGallery').value='';
 }
 
 async function evaluateComposition(){
@@ -1872,7 +1877,8 @@ function resetEval(){
   document.getElementById('evalResult').style.display='none';
   document.getElementById('photoPreview').style.display='none';
   document.getElementById('photoZone').style.display='block';
-  document.getElementById('photoInput').value='';
+  document.getElementById('photoInputCamera').value='';
+  document.getElementById('photoInputGallery').value='';
   document.getElementById('kompStudent').value='';
   document.getElementById('kompNo').value='1';
   document.getElementById('kompKonu').value='';
